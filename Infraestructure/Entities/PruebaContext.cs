@@ -33,7 +33,7 @@ public partial class PruebaContext : DbContext
     {
         modelBuilder.Entity<EstadoProducto>(entity =>
         {
-            entity.HasKey(e => e.IdEstadoProducto).HasName("PK__estado_p__C7C0DA9D8ABA8087");
+            entity.HasKey(e => e.IdEstadoProducto).HasName("PK__estado_p__C7C0DA9D59783F28");
 
             entity.ToTable("estado_producto");
 
@@ -52,7 +52,7 @@ public partial class PruebaContext : DbContext
 
         modelBuilder.Entity<Producto>(entity =>
         {
-            entity.HasKey(e => e.IdProducto).HasName("PK__producto__07F4A132C5971067");
+            entity.HasKey(e => e.IdProducto).HasName("PK__producto__07F4A13230837841");
 
             entity.ToTable("producto");
 
@@ -77,12 +77,12 @@ public partial class PruebaContext : DbContext
             entity.HasOne(d => d.IdEstadoProductoNavigation).WithMany(p => p.Producto)
                 .HasForeignKey(d => d.IdEstadoProducto)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__producto__idEsta__70DDC3D8");
+                .HasConstraintName("FK__producto__idEsta__403A8C7D");
         });
 
         modelBuilder.Entity<Roles>(entity =>
         {
-            entity.HasKey(e => e.IdRol).HasName("PK__roles__6ABCB5E0B23EFD30");
+            entity.HasKey(e => e.IdRol).HasName("PK__roles__6ABCB5E07E06EF65");
 
             entity.ToTable("roles");
 
@@ -101,7 +101,7 @@ public partial class PruebaContext : DbContext
 
         modelBuilder.Entity<Usuario>(entity =>
         {
-            entity.HasKey(e => e.IdUsuario).HasName("PK__usuario__645723A659E5E8FA");
+            entity.HasKey(e => e.IdUsuario).HasName("PK__usuario__645723A6029F33CE");
 
             entity.ToTable("usuario");
 
@@ -126,7 +126,7 @@ public partial class PruebaContext : DbContext
             entity.HasOne(d => d.IdRolNavigation).WithMany(p => p.Usuario)
                 .HasForeignKey(d => d.IdRol)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Id__Rol");
+                .HasConstraintName("FK__usuario__id_rol__3A81B327");
         });
 
         modelBuilder.Entity<UsuarioProducto>(entity =>
@@ -142,12 +142,12 @@ public partial class PruebaContext : DbContext
             entity.HasOne(d => d.IdProductoNavigation).WithMany()
                 .HasForeignKey(d => d.IdProducto)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__usuario_p__idPro__73BA3083");
+                .HasConstraintName("FK__usuario_p__idPro__4316F928");
 
             entity.HasOne(d => d.IdUsuarioNavigation).WithMany()
                 .HasForeignKey(d => d.IdUsuario)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__usuario_p__idUsu__72C60C4A");
+                .HasConstraintName("FK__usuario_p__idUsu__4222D4EF");
         });
 
         OnModelCreatingPartial(modelBuilder);

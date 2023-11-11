@@ -40,12 +40,7 @@ namespace apiPrueba.Interface
                 
                 });
                 await _context.SaveChangesAsync();
-                if (response != null )
-                {
-                    return true;
-                }
-
-                    return true;
+                return true;
                 }
             catch (Exception)
             {

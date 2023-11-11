@@ -1,16 +1,11 @@
-﻿using apiPrueba.Models;
+﻿using apiPrueba.Domain.Exceptions;
 using apiPrueba.Dtos;
+using apiPrueba.Interface;
+using apiPrueba.Models;
+using Microsoft.AspNetCore.Mvc;
 
-namespace apiPrueba.Interface
+namespace apiPrueba.Domain.Services
 {
-    public interface IEstadoProducto
-    {
-
-
-        public Task<bool> insertarEstadoProducto(EstadoProductoDto estadoProducto);
-    }
-
-
     public class EstadoProductoP : IEstadoProducto
     {
         public PruebaContext _context;
@@ -23,16 +18,24 @@ namespace apiPrueba.Interface
 
         public async Task<bool> insertarEstadoProducto(EstadoProductoDto estadoProducto)
         {
+            //if (estadoProducto.Nombre != "Luber")
+            //{
+                
+            //}
+
+            //Console.WriteLine("Esto jamas se va a ejecutar");
+            
             var response = await _context.EstadoProducto.AddAsync(new EstadoProducto
             {
                 IdEstadoProducto = Guid.NewGuid(),
                 Nombre = estadoProducto.Nombre,
                 Descripcion = estadoProducto.Descripcion
             });
+
+
             await _context.SaveChangesAsync();
             return true;
         }
-
 
 
     }

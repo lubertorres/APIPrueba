@@ -1,9 +1,9 @@
-﻿using apiPrueba.Dtos;
+﻿
+using apiPrueba.Dtos;
 using apiPrueba.Interface;
-using apiPrueba.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace apiPrueba.Controllers
+namespace apiPrueba.Aplication.Controllers
 {
 
     [ApiController]
@@ -12,7 +12,7 @@ namespace apiPrueba.Controllers
 
         private IEstadoProducto _estadoProducto;
 
-        public EstadoProductoController(IEstadoProducto estadoProductoController) 
+        public EstadoProductoController(IEstadoProducto estadoProductoController)
         {
 
             _estadoProducto = estadoProductoController;
@@ -21,12 +21,10 @@ namespace apiPrueba.Controllers
 
         [HttpPost]
         [Route("enviar-estado-producto")]
-        public async Task<bool> insertarEstadoProducto([FromBody] EstadoProductoDto estadoProducto)
+        public async Task<IActionResult> insertarEstadoProducto([FromBody] EstadoProductoDto estadoProducto)
         {
-
             var response = await _estadoProducto.insertarEstadoProducto(estadoProducto);
-            return response;
-
+            return Created("", response);
         }
 
 
