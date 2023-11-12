@@ -19,8 +19,7 @@ namespace apiPrueba.Aplication.Controllers
         }
 
 
-        [HttpPost]
-        [Route("enviar-estado-producto")]
+        [HttpPost("enviar-estado-producto")]
         public async Task<IActionResult> insertarEstadoProducto([FromBody] EstadoProductoDto estadoProducto)
         {
             var response = await _estadoProducto.insertarEstadoProducto(estadoProducto);
