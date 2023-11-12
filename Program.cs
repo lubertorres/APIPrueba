@@ -1,7 +1,9 @@
 
 using apiPrueba.Domain.Services;
+
+using apiPrueba.Infraestructure.Context;
 using apiPrueba.Interface;
-using apiPrueba.Models;
+
 using Microsoft.EntityFrameworkCore;
 
 IConfiguration config = new ConfigurationBuilder()
@@ -13,9 +15,9 @@ IConfiguration config = new ConfigurationBuilder()
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddDbContext<PruebaContext>(options =>
-    options.UseSqlServer(config.GetConnectionString("cn")));
+builder.Services.AddDbContext<ECommerceContext>(options => options.UseSqlServer(config.GetConnectionString("ecommerce")));
 
+//Exception Handler
 builder.Services.AddControllers(options =>
 {
     options.Filters.Add<ManejadorExcepciones>();
@@ -24,14 +26,17 @@ builder.Services.AddControllers(options =>
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddScoped<IUsuario, UsuarioR>();
-builder.Services.AddScoped<IProducto, ProductoP>();
-builder.Services.AddScoped<IUsuarioProducto, UsuarioProductoR>();
-builder.Services.AddScoped<IEstadoProducto, EstadoProductoP>();
-builder.Services.AddScoped<IRoles, RolesR>();
+// builder.Services.AddScoped<IUsuario, UsuarioR>();
+
 
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var dataContext = scope.ServiceProvider.GetRequiredService<ECommerceContext>();
+    dataContext.Database.Migrate();
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
