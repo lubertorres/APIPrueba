@@ -1,8 +1,8 @@
-
+using System.Text.Json.Serialization;
+using apiPrueba.Domain.Interface;
 using apiPrueba.Domain.Services;
 
 using apiPrueba.Infraestructure.Context;
-using apiPrueba.Interface;
 
 using Microsoft.EntityFrameworkCore;
 
@@ -18,15 +18,15 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<ECommerceContext>(options => options.UseSqlServer(config.GetConnectionString("ecommerce")));
 
 //Exception Handler
-builder.Services.AddControllers(options =>
-{
-    options.Filters.Add<ManejadorExcepciones>();
-});
+builder.Services
+    .AddControllers()
+    .AddJsonOptions(options => options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-// builder.Services.AddScoped<IUsuario, UsuarioR>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ICartService, CartService>();
 
 
 

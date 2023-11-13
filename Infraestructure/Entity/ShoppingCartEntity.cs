@@ -12,8 +12,8 @@ namespace apiPrueba.infraestructure.entity
 
         [ForeignKey("UserID")]
         public int UserID { get; set; }
+        public List<ItemEntity> Items { get; set; }
 
-        public virtual Collection<ItemEntity> Items { get; set; }
         public virtual UserEntity User { get; set; }
 
     }
